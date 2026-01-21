@@ -103,19 +103,28 @@ select {
   background: #1c1917;
   border: 1px solid rgba(68, 64, 60, 0.5);
   border-radius: 0.5rem;
-  padding: 0.625rem 0.875rem;
+  padding: 0.625rem 2rem 0.625rem 0.875rem;
   color: #fafaf9;
   font-size: 0.875rem;
   width: 100%;
   transition: border-color 0.2s ease;
   cursor: pointer;
-  appearance: auto;
+  -webkit-appearance: menulist;
+  -moz-appearance: menulist;
+  appearance: menulist;
+  position: relative;
+  z-index: 10;
+}
+
+select:active, select:focus {
+  z-index: 100;
 }
 
 select option {
-  background: #1c1917;
+  background: #292524;
   color: #fafaf9;
-  padding: 0.5rem;
+  padding: 10px;
+  min-height: 40px;
 }
 
 /* Override for inputs with icons */
@@ -197,6 +206,7 @@ input::placeholder, textarea::placeholder {
   max-width: 48rem;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: visible;
   display: flex;
   flex-direction: column;
 }
