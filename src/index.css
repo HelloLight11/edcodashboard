@@ -86,7 +86,7 @@ body {
 
 /* Input styles */
 input, select, textarea {
-  background: rgba(28, 25, 23, 0.8);
+  background: #1c1917;
   border: 1px solid rgba(68, 64, 60, 0.5);
   border-radius: 0.5rem;
   padding-top: 0.625rem;
@@ -97,6 +97,12 @@ input, select, textarea {
   font-size: 0.875rem;
   width: 100%;
   transition: border-color 0.2s ease;
+}
+
+select option {
+  background: #1c1917;
+  color: #fafaf9;
+  padding: 0.5rem;
 }
 
 /* Override for inputs with icons */
