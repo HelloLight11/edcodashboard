@@ -255,7 +255,7 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
         </div>
 
         {/* Tab Content */}
-        <div className="p-6 max-h-[60vh] overflow-y-auto">
+        <div className="p-6">
           {error && (
             <div className="flex items-center gap-2 p-3 mb-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
               <AlertCircle className="w-5 h-5" />
