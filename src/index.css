@@ -89,11 +89,19 @@ input, select, textarea {
   background: rgba(28, 25, 23, 0.8);
   border: 1px solid rgba(68, 64, 60, 0.5);
   border-radius: 0.5rem;
-  padding: 0.625rem 0.875rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  padding-right: 0.875rem;
+  padding-left: 0.875rem;
   color: #fafaf9;
   font-size: 0.875rem;
   width: 100%;
   transition: border-color 0.2s ease;
+}
+
+/* Override for inputs with icons */
+[class*="pl-10"] {
+  padding-left: 2.75rem !important;
 }
 
 input:focus, select:focus, textarea:focus {
