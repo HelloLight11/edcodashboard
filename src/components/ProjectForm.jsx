@@ -224,7 +224,7 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-stone-700">
+        <div className="flex items-center justify-between p-6 border-b border-stone-700 flex-shrink-0">
           <h2 className="text-xl font-semibold text-stone-100">
             {project ? 'Edit Project' : 'New Project'}
           </h2>
@@ -234,7 +234,7 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 p-4 border-b border-stone-700 overflow-x-auto">
+        <div className="flex gap-2 p-4 border-b border-stone-700 overflow-x-auto flex-shrink-0">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const isDisabled = !projectId && tab.id !== 'basic';
@@ -255,7 +255,7 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
         </div>
 
         {/* Tab Content */}
-        <div className="p-6">
+        <div className="p-6 overflow-y-auto flex-1">
           {error && (
             <div className="flex items-center gap-2 p-3 mb-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400">
               <AlertCircle className="w-5 h-5" />
