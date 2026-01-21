@@ -117,7 +117,7 @@ export default function Sidebar({ currentPage, onNavigate, onLogout, user }) {
           {/* User section */}
           <div className="p-3 border-t border-stone-800">
             {!collapsed && user && (
-              <div className="px-3 py-2 mb-2">
+              <div className="px-3 py-2 mb-2 text-center">
                 <p className="font-medium text-stone-200 truncate">{user.name}</p>
                 <p className="text-xs text-stone-500 truncate">{user.email}</p>
               </div>
@@ -126,10 +126,9 @@ export default function Sidebar({ currentPage, onNavigate, onLogout, user }) {
             <button
               onClick={onLogout}
               className={`
-                w-full flex items-center gap-3 px-3 py-2.5 rounded-xl
+                w-full flex items-center justify-center gap-3 px-3 py-2.5 rounded-xl
                 text-stone-400 hover:text-red-400 hover:bg-red-500/10
                 transition-all duration-200
-                ${collapsed ? 'justify-center' : ''}
               `}
               title={collapsed ? 'Logout' : undefined}
             >
