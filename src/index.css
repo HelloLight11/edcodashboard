@@ -146,10 +146,11 @@ input::placeholder, textarea::placeholder {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 50;
-  padding: 1rem;
+  padding: 2rem 1rem;
+  overflow-y: auto;
 }
 
 .modal-content {
@@ -158,8 +159,8 @@ input::placeholder, textarea::placeholder {
   border-radius: 1rem;
   width: 100%;
   max-width: 48rem;
-  max-height: 90vh;
-  overflow-y: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 /* Tab styles */
