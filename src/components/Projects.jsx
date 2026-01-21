@@ -5,6 +5,7 @@ import {
   Edit2,
   Trash2,
   Filter,
+  Calendar,
   ChevronDown
 } from 'lucide-react';
 import { getProjects, getCustomers, deleteProject, formatCurrency, formatDate } from '../services/googleSheets';
@@ -19,12 +20,19 @@ const STATUS_OPTIONS = [
   { value: 'cancelled', label: 'Cancelled' },
 ];
 
+const YEAR_OPTIONS = [
+  { value: '', label: 'All Years' },
+  { value: '2026', label: '2026' },
+  { value: '2025', label: '2025' },
+];
+
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [yearFilter, setYearFilter] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
 
@@ -72,7 +80,10 @@ export default function Projects() {
 
     const matchesStatus = !statusFilter || project.status === statusFilter;
 
-    return matchesSearch && matchesStatus;
+    const projectYear = project.createdAt ? new Date(project.createdAt).getFullYear().toString() : '';
+    const matchesYear = !yearFilter || projectYear === yearFilter;
+
+    return matchesSearch && matchesStatus && matchesYear;
   });
 
   const openAddModal = () => {
@@ -137,6 +148,21 @@ export default function Projects() {
             />
           </div>
           <div className="relative">
+            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500" />
+            <select
+              value={yearFilter}
+              onChange={(e) => setYearFilter(e.target.value)}
+              className="pl-10 pr-10 min-w-[130px]"
+            >
+              {YEAR_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500 pointer-events-none" />
+          </div>
+          <div className="relative">
             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500" />
             <select
               value={statusFilter}
@@ -158,7 +184,7 @@ export default function Projects() {
       {filteredProjects.length === 0 ? (
         <div className="card text-center py-12">
           <p className="text-stone-400">
-            {searchTerm || statusFilter ? 'No projects match your filters.' : 'No projects yet. Create your first project!'}
+            {searchTerm || statusFilter || yearFilter ? 'No projects match your filters.' : 'No projects yet. Create your first project!'}
           </p>
         </div>
       ) : (
