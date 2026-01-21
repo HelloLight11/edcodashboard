@@ -85,7 +85,7 @@ export default function Sidebar({ currentPage, onNavigate, onLogout, user }) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+          <nav className="flex-1 p-3 space-y-3 overflow-y-auto">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentPage === item.id;
