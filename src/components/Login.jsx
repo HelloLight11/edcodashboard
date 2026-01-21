@@ -100,10 +100,6 @@ export default function Login({ onLogin }) {
           </form>
         </div>
 
-        {/* Demo credentials */}
-        <p className="text-center text-stone-500 text-sm mt-6">
-          Demo: admin@edcoheating.com / admin123
-        </p>
       </div>
     </div>
   );
