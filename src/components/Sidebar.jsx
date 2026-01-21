@@ -64,7 +64,7 @@ export default function Sidebar({ currentPage, onNavigate, onLogout, user }) {
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-stone-800">
             <div className={`flex items-center gap-3 ${collapsed ? 'justify-center w-full' : ''}`}>
-              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
                 <Flame className="w-5 h-5 text-white" />
               </div>
               {!collapsed && (
@@ -85,7 +85,7 @@ export default function Sidebar({ currentPage, onNavigate, onLogout, user }) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-6 overflow-y-auto">
+          <nav className="flex-1 p-4 pt-8 space-y-6 overflow-y-auto">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = currentPage === item.id;
@@ -99,13 +99,13 @@ export default function Sidebar({ currentPage, onNavigate, onLogout, user }) {
                     transition-all duration-200
                     ${collapsed ? 'justify-center' : ''}
                     ${isActive
-                      ? 'bg-gradient-to-r from-amber-500/20 to-orange-500/20 text-amber-400 border border-amber-500/30'
+                      ? 'bg-gradient-to-r from-blue-500/20 to-blue-600/20 text-blue-400 border border-blue-500/30'
                       : 'text-stone-400 hover:text-stone-200 hover:bg-stone-800'
                     }
                   `}
                   title={collapsed ? item.label : undefined}
                 >
-                  <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-amber-400' : ''}`} />
+                  <Icon className={`w-5 h-5 flex-shrink-0 ${isActive ? 'text-blue-400' : ''}`} />
                   {!collapsed && (
                     <span className="font-medium">{item.label}</span>
                   )}

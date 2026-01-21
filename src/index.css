@@ -3,8 +3,8 @@
 @theme {
   --color-stone-850: #1c1917;
   --color-stone-800: #292524;
-  --color-amber-500: #f59e0b;
-  --color-orange-600: #ea580c;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
 }
 
 * {
@@ -45,7 +45,7 @@ body {
 
 /* Gradient button */
 .btn-gradient {
-  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
   font-weight: 600;
   padding: 0.625rem 1.25rem;
@@ -60,7 +60,7 @@ body {
 
 .btn-gradient:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .btn-gradient:disabled {
@@ -79,7 +79,7 @@ body {
 }
 
 .card-hover:hover {
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: rgba(59, 130, 246, 0.3);
   transform: translateY(-2px);
   transition: all 0.2s ease;
 }
@@ -106,7 +106,7 @@ input, select, textarea {
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  border-color: #f59e0b;
+  border-color: #3b82f6;
 }
 
 input::placeholder, textarea::placeholder {
@@ -193,7 +193,7 @@ input::placeholder, textarea::placeholder {
 }
 
 .tab.active {
-  background: linear-gradient(135deg, #f59e0b, #ea580c);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: white;
 }
 
@@ -231,8 +231,8 @@ tr:hover {
 .spinner {
   width: 2rem;
   height: 2rem;
-  border: 3px solid rgba(245, 158, 11, 0.2);
-  border-top-color: #f59e0b;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
