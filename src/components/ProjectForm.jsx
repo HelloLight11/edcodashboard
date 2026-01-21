@@ -4,13 +4,10 @@ import {
   AlertCircle,
   Plus,
   Trash2,
-  Upload,
-  Image,
   FileText,
   Wrench,
   Calendar,
-  DollarSign,
-  Camera
+  DollarSign
 } from 'lucide-react';
 import {
   addProject,
@@ -24,9 +21,6 @@ import {
   getPayments,
   addPayment,
   deletePayment,
-  getPhotos,
-  addPhoto,
-  deletePhoto,
   formatCurrency,
   formatDate
 } from '../services/googleSheets';
@@ -36,7 +30,6 @@ const TABS = [
   { id: 'equipment', label: 'Equipment', icon: Wrench },
   { id: 'workdays', label: 'Work Days', icon: Calendar },
   { id: 'payments', label: 'Payments', icon: DollarSign },
-  { id: 'photos', label: 'Photos', icon: Camera },
 ];
 
 const STATUS_OPTIONS = [
@@ -71,7 +64,6 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
   const [equipment, setEquipment] = useState([]);
   const [workDays, setWorkDays] = useState([]);
   const [payments, setPayments] = useState([]);
-  const [photos, setPhotos] = useState([]);
 
   // Form inputs for adding items
   const [newEquipment, setNewEquipment] = useState({ name: '', type: '', serialNumber: '' });
@@ -86,16 +78,14 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
 
   const loadRelatedData = async () => {
     try {
-      const [equipmentData, workDaysData, paymentsData, photosData] = await Promise.all([
+      const [equipmentData, workDaysData, paymentsData] = await Promise.all([
         getEquipment(projectId),
         getWorkDays(projectId),
         getPayments(projectId),
-        getPhotos(projectId),
       ]);
       setEquipment(equipmentData);
       setWorkDays(workDaysData);
       setPayments(paymentsData);
-      setPhotos(photosData);
     } catch (err) {
       console.error('Error loading related data:', err);
     }
@@ -186,37 +176,6 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
       await loadRelatedData();
     } catch (err) {
       alert('Failed to delete payment');
-    }
-  };
-
-  // Photo handlers
-  const handlePhotoUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    // Convert to base64
-    const reader = new FileReader();
-    reader.onload = async () => {
-      try {
-        await addPhoto({
-          projectId,
-          url: reader.result,
-          filename: file.name,
-        });
-        await loadRelatedData();
-      } catch (err) {
-        alert('Failed to upload photo');
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleDeletePhoto = async (id) => {
-    try {
-      await deletePhoto(id);
-      await loadRelatedData();
-    } catch (err) {
-      alert('Failed to delete photo');
     }
   };
 
@@ -587,39 +546,6 @@ export default function ProjectForm({ project, customers, onClose, onSave }) {
             </div>
           )}
 
-          {/* Photos Tab */}
-          {activeTab === 'photos' && (
-            <div className="space-y-4">
-              <label className="flex items-center justify-center gap-2 p-8 border-2 border-dashed border-stone-600 rounded-xl cursor-pointer hover:border-amber-500/50 transition-colors">
-                <Upload className="w-5 h-5 text-stone-400" />
-                <span className="text-stone-400">Click to upload photos</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handlePhotoUpload}
-                  className="hidden"
-                />
-              </label>
-
-              {photos.length === 0 ? (
-                <p className="text-stone-500 text-center py-8">No photos uploaded yet.</p>
-              ) : (
-                <div className="photo-grid">
-                  {photos.map((photo) => (
-                    <div key={photo.id} className="photo-item">
-                      <img src={photo.url} alt={photo.filename} />
-                      <button
-                        onClick={() => handleDeletePhoto(photo.id)}
-                        className="delete-btn"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </div>
     </div>
