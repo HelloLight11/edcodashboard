@@ -293,6 +293,15 @@ export async function updateUser(id, user) {
   });
 }
 
+// ============ Email ============
+
+export async function sendProposalEmail(proposal) {
+  return fetchPost({
+    action: 'sendProposal',
+    proposal,
+  });
+}
+
 // ============ Utility Functions ============
 
 export function formatCurrency(amount) {

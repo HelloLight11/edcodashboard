@@ -6,9 +6,11 @@ import {
   Trash2,
   Filter,
   Calendar,
-  ChevronDown
+  ChevronDown,
+  Send,
+  CheckCircle
 } from 'lucide-react';
-import { getProjects, getCustomers, deleteProject, formatCurrency, formatDate } from '../services/googleSheets';
+import { getProjects, getCustomers, deleteProject, sendProposalEmail, formatCurrency, formatDate } from '../services/googleSheets';
 import ProjectForm from './ProjectForm';
 
 const STATUS_OPTIONS = [
@@ -35,6 +37,8 @@ export default function Projects() {
   const [yearFilter, setYearFilter] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
+  const [sendingProposal, setSendingProposal] = useState(null);
+  const [proposalSent, setProposalSent] = useState({});
 
   useEffect(() => {
     loadData();
@@ -56,9 +60,54 @@ export default function Projects() {
     }
   };
 
+  const getCustomer = (customerId) => {
+    return customers.find(c => c.id === customerId);
+  };
+
   const getCustomerName = (customerId) => {
-    const customer = customers.find(c => c.id === customerId);
+    const customer = getCustomer(customerId);
     return customer ? `${customer.firstName} ${customer.lastName}` : 'Unknown';
+  };
+
+  const handleSendProposal = async (project) => {
+    const customer = getCustomer(project.customerId);
+
+    if (!customer || !customer.email) {
+      alert('Customer email not found. Please add an email address for this customer.');
+      return;
+    }
+
+    if (!confirm(`Send proposal for "${project.projectName}" to ${customer.email}?`)) {
+      return;
+    }
+
+    setSendingProposal(project.id);
+
+    try {
+      await sendProposalEmail({
+        customerEmail: customer.email,
+        customerName: `${customer.firstName} ${customer.lastName}`,
+        projectName: project.projectName,
+        estimateAmount: project.estimateAmount,
+        natureOfJob: project.natureOfJob,
+        notes: project.notes,
+        contractor: project.contractor,
+      });
+
+      setProposalSent(prev => ({ ...prev, [project.id]: true }));
+      alert('Proposal sent successfully!');
+
+      // Reset the sent indicator after 5 seconds
+      setTimeout(() => {
+        setProposalSent(prev => ({ ...prev, [project.id]: false }));
+      }, 5000);
+
+    } catch (err) {
+      console.error('Error sending proposal:', err);
+      alert('Failed to send proposal. Please try again.');
+    } finally {
+      setSendingProposal(null);
+    }
   };
 
   const getStatusBadge = (status) => {
@@ -125,8 +174,8 @@ export default function Projects() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-100">Projects</h1>
-          <p className="text-stone-400 mt-1">{projects.length} total projects</p>
+          <h1 className="text-2xl font-bold text-gray-800">Projects</h1>
+          <p className="text-gray-500 mt-1">{projects.length} total projects</p>
         </div>
         <button onClick={openAddModal} className="btn-gradient">
           <Plus className="w-5 h-5" />
@@ -138,7 +187,7 @@ export default function Projects() {
       <div className="card mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
               type="text"
               placeholder="Search projects..."
@@ -148,7 +197,7 @@ export default function Projects() {
             />
           </div>
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500" />
+            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <select
               value={yearFilter}
               onChange={(e) => setYearFilter(e.target.value)}
@@ -160,10 +209,10 @@ export default function Projects() {
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500 pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -175,7 +224,7 @@ export default function Projects() {
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500 pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" />
           </div>
         </div>
       </div>
@@ -183,7 +232,7 @@ export default function Projects() {
       {/* Projects Grid */}
       {filteredProjects.length === 0 ? (
         <div className="card text-center py-12">
-          <p className="text-stone-400">
+          <p className="text-gray-500">
             {searchTerm || statusFilter || yearFilter ? 'No projects match your filters.' : 'No projects yet. Create your first project!'}
           </p>
         </div>
@@ -198,50 +247,78 @@ export default function Projects() {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(project)}
-                    className="p-2 rounded-lg hover:bg-stone-700 text-stone-400 hover:text-stone-200 transition-colors"
+                    className="p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 transition-colors"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(project)}
-                    className="p-2 rounded-lg hover:bg-red-500/20 text-stone-400 hover:text-red-400 transition-colors"
+                    className="p-2 rounded-lg hover:bg-red-500/20 text-gray-500 hover:text-red-400 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>
 
-              <h3 className="text-lg font-semibold text-stone-100 mb-1">
+              <h3 className="text-lg font-semibold text-gray-800 mb-1">
                 {project.projectName}
               </h3>
-              <p className="text-stone-400 text-sm mb-4">
+              <p className="text-gray-500 text-sm mb-4">
                 {getCustomerName(project.customerId)}
               </p>
 
               {project.contractor && (
-                <p className="text-stone-500 text-sm mb-3">
+                <p className="text-gray-400 text-sm mb-3">
                   Contractor: {project.contractor}
                 </p>
               )}
 
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-stone-700">
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
                 <div>
-                  <p className="text-xs text-stone-500 mb-1">Estimate</p>
-                  <p className="font-medium text-stone-200">
+                  <p className="text-xs text-gray-400 mb-1">Estimate</p>
+                  <p className="font-medium text-gray-700">
                     {formatCurrency(project.estimateAmount)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-stone-500 mb-1">Contract</p>
-                  <p className="font-medium text-stone-200">
+                  <p className="text-xs text-gray-400 mb-1">Contract</p>
+                  <p className="font-medium text-gray-700">
                     {formatCurrency(project.contractAmount)}
                   </p>
                 </div>
               </div>
 
-              <p className="text-xs text-stone-500 mt-4">
-                Created {formatDate(project.createdAt)}
-              </p>
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+                <p className="text-xs text-gray-400">
+                  Created {formatDate(project.createdAt)}
+                </p>
+                <button
+                  onClick={() => handleSendProposal(project)}
+                  disabled={sendingProposal === project.id}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                    proposalSent[project.id]
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                  }`}
+                >
+                  {sendingProposal === project.id ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : proposalSent[project.id] ? (
+                    <>
+                      <CheckCircle className="w-4 h-4" />
+                      Sent!
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      Send Proposal
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           ))}
         </div>
