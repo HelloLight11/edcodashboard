@@ -136,6 +136,10 @@ select option {
   padding-left: 2.75rem !important;
 }
 
+[class*="pl-11"] {
+  padding-left: 3rem !important;
+}
+
 input:focus, textarea:focus {
   outline: none;
   border-color: #3b82f6;
