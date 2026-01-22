@@ -100,7 +100,7 @@ export default function Dashboard({ onNavigate }) {
       color: 'from-amber-500 to-orange-600',
     },
     {
-      label: 'Total Revenue',
+      label: 'Total 2026 Revenue',
       value: formatCurrency(stats.totalRevenue),
       icon: DollarSign,
       color: 'from-green-500 to-emerald-600',
