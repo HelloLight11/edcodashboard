@@ -130,18 +130,20 @@ export default function Dashboard({ onNavigate }) {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+      <div className="flex flex-wrap -mx-3 mb-12">
         {statCards.map((stat, index) => {
           const Icon = stat.icon;
           return (
-            <div key={index} className="card card-hover">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-gray-500 text-sm">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-800 mt-1">{stat.value}</p>
-                </div>
-                <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color}`}>
-                  <Icon className="w-5 h-5 text-white" />
+            <div key={index} className="w-full sm:w-1/2 lg:w-1/4 px-3 mb-6">
+              <div className="card card-hover h-full">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-gray-500 text-sm">{stat.label}</p>
+                    <p className="text-2xl font-bold text-gray-800 mt-1">{stat.value}</p>
+                  </div>
+                  <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color}`}>
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -150,45 +152,51 @@ export default function Dashboard({ onNavigate }) {
       </div>
 
       {/* Quick Actions */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-        <button
-          onClick={() => onNavigate('customers')}
-          className="card card-hover flex items-center gap-4 text-left"
-        >
-          <div className="p-3 rounded-xl bg-blue-500/20">
-            <Plus className="w-5 h-5 text-blue-400" />
-          </div>
-          <div>
-            <p className="font-medium text-gray-800">Add Customer</p>
-            <p className="text-sm text-gray-500">Create a new customer profile</p>
-          </div>
-        </button>
+      <div className="flex flex-wrap -mx-3 mb-12">
+        <div className="w-full md:w-1/3 px-3 mb-6">
+          <button
+            onClick={() => onNavigate('customers')}
+            className="card card-hover flex items-center gap-4 text-left w-full h-full"
+          >
+            <div className="p-3 rounded-xl bg-blue-500/20">
+              <Plus className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <p className="font-medium text-gray-800">Add Customer</p>
+              <p className="text-sm text-gray-500">Create a new customer profile</p>
+            </div>
+          </button>
+        </div>
 
-        <button
-          onClick={() => onNavigate('projects')}
-          className="card card-hover flex items-center gap-4 text-left"
-        >
-          <div className="p-3 rounded-xl bg-amber-500/20">
-            <FolderKanban className="w-5 h-5 text-blue-600" />
-          </div>
-          <div>
-            <p className="font-medium text-gray-800">New Project</p>
-            <p className="text-sm text-gray-500">Start a new estimate or project</p>
-          </div>
-        </button>
+        <div className="w-full md:w-1/3 px-3 mb-6">
+          <button
+            onClick={() => onNavigate('projects')}
+            className="card card-hover flex items-center gap-4 text-left w-full h-full"
+          >
+            <div className="p-3 rounded-xl bg-amber-500/20">
+              <FolderKanban className="w-5 h-5 text-blue-600" />
+            </div>
+            <div>
+              <p className="font-medium text-gray-800">New Project</p>
+              <p className="text-sm text-gray-500">Start a new estimate or project</p>
+            </div>
+          </button>
+        </div>
 
-        <button
-          onClick={() => onNavigate('schedule')}
-          className="card card-hover flex items-center gap-4 text-left"
-        >
-          <div className="p-3 rounded-xl bg-green-500/20">
-            <Clock className="w-5 h-5 text-green-400" />
-          </div>
-          <div>
-            <p className="font-medium text-gray-800">View Schedule</p>
-            <p className="text-sm text-gray-500">Check upcoming work days</p>
-          </div>
-        </button>
+        <div className="w-full md:w-1/3 px-3 mb-6">
+          <button
+            onClick={() => onNavigate('schedule')}
+            className="card card-hover flex items-center gap-4 text-left w-full h-full"
+          >
+            <div className="p-3 rounded-xl bg-green-500/20">
+              <Clock className="w-5 h-5 text-green-400" />
+            </div>
+            <div>
+              <p className="font-medium text-gray-800">View Schedule</p>
+              <p className="text-sm text-gray-500">Check upcoming work days</p>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Recent Projects */}
