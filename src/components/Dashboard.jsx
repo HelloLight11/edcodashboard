@@ -125,8 +125,8 @@ export default function Dashboard({ onNavigate }) {
     <div className="animate-fadeIn">
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-stone-100">Dashboard</h1>
-        <p className="text-stone-400 mt-1">Welcome back! Here's an overview of your business.</p>
+        <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+        <p className="text-gray-500 mt-1">Welcome back! Here's an overview of your business.</p>
       </div>
 
       {/* Stats Grid */}
@@ -137,8 +137,8 @@ export default function Dashboard({ onNavigate }) {
             <div key={index} className="card card-hover">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-stone-400 text-sm">{stat.label}</p>
-                  <p className="text-2xl font-bold text-stone-100 mt-1">{stat.value}</p>
+                  <p className="text-gray-500 text-sm">{stat.label}</p>
+                  <p className="text-2xl font-bold text-gray-800 mt-1">{stat.value}</p>
                 </div>
                 <div className={`p-3 rounded-xl bg-gradient-to-br ${stat.color}`}>
                   <Icon className="w-5 h-5 text-white" />
@@ -159,8 +159,8 @@ export default function Dashboard({ onNavigate }) {
             <Plus className="w-5 h-5 text-blue-400" />
           </div>
           <div>
-            <p className="font-medium text-stone-100">Add Customer</p>
-            <p className="text-sm text-stone-400">Create a new customer profile</p>
+            <p className="font-medium text-gray-800">Add Customer</p>
+            <p className="text-sm text-gray-500">Create a new customer profile</p>
           </div>
         </button>
 
@@ -169,11 +169,11 @@ export default function Dashboard({ onNavigate }) {
           className="card card-hover flex items-center gap-4 text-left"
         >
           <div className="p-3 rounded-xl bg-amber-500/20">
-            <FolderKanban className="w-5 h-5 text-amber-400" />
+            <FolderKanban className="w-5 h-5 text-blue-600" />
           </div>
           <div>
-            <p className="font-medium text-stone-100">New Project</p>
-            <p className="text-sm text-stone-400">Start a new estimate or project</p>
+            <p className="font-medium text-gray-800">New Project</p>
+            <p className="text-sm text-gray-500">Start a new estimate or project</p>
           </div>
         </button>
 
@@ -185,8 +185,8 @@ export default function Dashboard({ onNavigate }) {
             <Clock className="w-5 h-5 text-green-400" />
           </div>
           <div>
-            <p className="font-medium text-stone-100">View Schedule</p>
-            <p className="text-sm text-stone-400">Check upcoming work days</p>
+            <p className="font-medium text-gray-800">View Schedule</p>
+            <p className="text-sm text-gray-500">Check upcoming work days</p>
           </div>
         </button>
       </div>
@@ -194,17 +194,17 @@ export default function Dashboard({ onNavigate }) {
       {/* Recent Projects */}
       <div className="card">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-stone-100">Recent Projects</h2>
+          <h2 className="text-lg font-semibold text-gray-800">Recent Projects</h2>
           <button
             onClick={() => onNavigate('projects')}
-            className="flex items-center gap-1 text-sm text-amber-400 hover:text-amber-300 transition-colors"
+            className="flex items-center gap-1 text-sm text-blue-600 hover:text-amber-300 transition-colors"
           >
             View all <ArrowRight className="w-4 h-4" />
           </button>
         </div>
 
         {recentProjects.length === 0 ? (
-          <p className="text-stone-400 text-center py-8">No projects yet. Create your first project!</p>
+          <p className="text-gray-500 text-center py-8">No projects yet. Create your first project!</p>
         ) : (
           <div className="table-container">
             <table>
@@ -220,15 +220,15 @@ export default function Dashboard({ onNavigate }) {
               <tbody>
                 {recentProjects.map((project) => (
                   <tr key={project.id}>
-                    <td className="font-medium text-stone-200">{project.projectName}</td>
-                    <td className="text-stone-400">{getCustomerName(project.customerId)}</td>
+                    <td className="font-medium text-gray-700">{project.projectName}</td>
+                    <td className="text-gray-500">{getCustomerName(project.customerId)}</td>
                     <td>
                       <span className={getStatusBadge(project.status)}>
                         {project.status?.replace('-', ' ')}
                       </span>
                     </td>
-                    <td className="text-stone-300">{formatCurrency(project.estimateAmount)}</td>
-                    <td className="text-stone-400">{formatDate(project.createdAt)}</td>
+                    <td className="text-gray-600">{formatCurrency(project.estimateAmount)}</td>
+                    <td className="text-gray-500">{formatDate(project.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>

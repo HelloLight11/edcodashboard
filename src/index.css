@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-stone-850: #1c1917;
-  --color-stone-800: #292524;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-600: #4b5563;
+  --color-gray-800: #1f2937;
   --color-primary-500: #3b82f6;
   --color-primary-600: #2563eb;
 }
@@ -15,8 +18,8 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #1c1917;
-  color: #fafaf9;
+  background-color: #f3f4f6;
+  color: #1f2937;
   min-height: 100vh;
 }
 
@@ -31,16 +34,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #292524;
+  background: #e5e7eb;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #57534e;
+  background: #9ca3af;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #78716c;
+  background: #6b7280;
 }
 
 /* Gradient button */
@@ -71,40 +74,41 @@ body {
 
 /* Card styles */
 .card {
-  background: rgba(41, 37, 36, 0.6);
-  border: 1px solid rgba(68, 64, 60, 0.5);
+  background: white;
+  border: 1px solid #e5e7eb;
   border-radius: 1rem;
   padding: 1.5rem;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card-hover:hover {
-  border-color: rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
   transform: translateY(-2px);
   transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Input styles */
 input, textarea {
-  background: #1c1917;
-  border: 1px solid rgba(68, 64, 60, 0.5);
+  background: white;
+  border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
   padding-right: 0.875rem;
   padding-left: 0.875rem;
-  color: #fafaf9;
+  color: #1f2937;
   font-size: 0.875rem;
   width: 100%;
   transition: border-color 0.2s ease;
 }
 
 select {
-  background: #1c1917;
-  border: 1px solid rgba(68, 64, 60, 0.5);
+  background: white;
+  border: 1px solid #d1d5db;
   border-radius: 0.5rem;
   padding: 0.625rem 2rem 0.625rem 0.875rem;
-  color: #fafaf9;
+  color: #1f2937;
   font-size: 0.875rem;
   width: 100%;
   transition: border-color 0.2s ease;
@@ -121,8 +125,8 @@ select:active, select:focus {
 }
 
 select option {
-  background: #292524;
-  color: #fafaf9;
+  background: white;
+  color: #1f2937;
   padding: 10px;
   min-height: 40px;
 }
@@ -135,15 +139,17 @@ select option {
 input:focus, textarea:focus {
   outline: none;
   border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 select:focus {
   outline: none;
   border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 input::placeholder, textarea::placeholder {
-  color: #78716c;
+  color: #9ca3af;
 }
 
 /* Status badges */
@@ -156,28 +162,28 @@ input::placeholder, textarea::placeholder {
 }
 
 .badge-estimate {
-  background: rgba(59, 130, 246, 0.2);
-  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
 }
 
 .badge-approved {
-  background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
 }
 
 .badge-in-progress {
-  background: rgba(245, 158, 11, 0.2);
-  color: #fbbf24;
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
 }
 
 .badge-completed {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
 }
 
 .badge-cancelled {
-  background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
 }
 
 /* Modal overlay */
@@ -189,7 +195,7 @@ input::placeholder, textarea::placeholder {
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -199,8 +205,8 @@ input::placeholder, textarea::placeholder {
 }
 
 .modal-content {
-  background: #292524;
-  border: 1px solid rgba(68, 64, 60, 0.5);
+  background: white;
+  border: 1px solid #e5e7eb;
   border-radius: 1rem;
   width: 100%;
   max-width: 48rem;
@@ -209,6 +215,7 @@ input::placeholder, textarea::placeholder {
   overflow-x: visible;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 /* Tab styles */
@@ -218,12 +225,12 @@ input::placeholder, textarea::placeholder {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #a8a29e;
+  color: #6b7280;
 }
 
 .tab:hover {
-  color: #fafaf9;
-  background: rgba(68, 64, 60, 0.3);
+  color: #1f2937;
+  background: #f3f4f6;
 }
 
 .tab.active {
@@ -245,20 +252,20 @@ th {
   text-align: left;
   padding: 0.75rem 1rem;
   font-weight: 600;
-  color: #a8a29e;
+  color: #6b7280;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border-bottom: 1px solid rgba(68, 64, 60, 0.5);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 td {
   padding: 1rem;
-  border-bottom: 1px solid rgba(68, 64, 60, 0.3);
+  border-bottom: 1px solid #f3f4f6;
 }
 
 tr:hover {
-  background: rgba(68, 64, 60, 0.2);
+  background: #f9fafb;
 }
 
 /* Loading spinner */
