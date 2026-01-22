@@ -136,8 +136,8 @@ export default function Customers() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-stone-100">Customers</h1>
-          <p className="text-stone-400 mt-1">{customers.length} total customers</p>
+          <h1 className="text-2xl font-bold text-gray-800">Customers</h1>
+          <p className="text-gray-500 mt-1">{customers.length} total customers</p>
         </div>
         <button onClick={openAddModal} className="btn-gradient">
           <Plus className="w-5 h-5" />
@@ -148,7 +148,7 @@ export default function Customers() {
       {/* Search */}
       <div className="card mb-6">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <input
             type="text"
             placeholder="Search customers..."
@@ -162,7 +162,7 @@ export default function Customers() {
       {/* Customers Table */}
       <div className="card">
         {filteredCustomers.length === 0 ? (
-          <p className="text-stone-400 text-center py-8">
+          <p className="text-gray-500 text-center py-8">
             {searchTerm ? 'No customers match your search.' : 'No customers yet. Add your first customer!'}
           </p>
         ) : (
@@ -182,11 +182,11 @@ export default function Customers() {
                   <tr key={customer.id}>
                     <td>
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-medium">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-gray-900 font-semibold">
                           {customer.firstName?.[0]}{customer.lastName?.[0]}
                         </div>
                         <div>
-                          <p className="font-medium text-stone-200">
+                          <p className="font-medium text-gray-800">
                             {customer.firstName} {customer.lastName}
                           </p>
                         </div>
@@ -194,36 +194,36 @@ export default function Customers() {
                     </td>
                     <td>
                       <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-stone-400">
+                        <div className="flex items-center gap-2 text-gray-800">
                           <Mail className="w-4 h-4" />
                           <span className="text-sm">{customer.email}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-stone-400">
+                        <div className="flex items-center gap-2 text-gray-800">
                           <Phone className="w-4 h-4" />
                           <span className="text-sm">{customer.phone}</span>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div className="flex items-center gap-2 text-stone-400">
+                      <div className="flex items-center gap-2 text-gray-800">
                         <MapPin className="w-4 h-4" />
                         <span className="text-sm">{customer.city}, {customer.state}</span>
                       </div>
                     </td>
-                    <td className="text-stone-400 text-sm">
+                    <td className="text-gray-800 text-sm">
                       {formatDate(customer.createdAt)}
                     </td>
                     <td>
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => openEditModal(customer)}
-                          className="p-2 rounded-lg hover:bg-stone-700 text-stone-400 hover:text-stone-200 transition-colors"
+                          className="p-2 rounded-lg hover:bg-gray-100 text-gray-600 hover:text-gray-700 transition-colors"
                         >
                           <Edit2 className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => handleDelete(customer)}
-                          className="p-2 rounded-lg hover:bg-red-500/20 text-stone-400 hover:text-red-400 transition-colors"
+                          className="p-2 rounded-lg hover:bg-red-500/20 text-gray-600 hover:text-red-400 transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -241,13 +241,13 @@ export default function Customers() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content max-w-lg" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between p-6 border-b border-stone-700">
-              <h2 className="text-xl font-semibold text-stone-100">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-800">
                 {editingCustomer ? 'Edit Customer' : 'Add Customer'}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="p-2 rounded-lg hover:bg-stone-700 text-stone-400"
+                className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -263,7 +263,7 @@ export default function Customers() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">First Name</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">First Name</label>
                   <input
                     type="text"
                     value={formData.firstName}
@@ -272,7 +272,7 @@ export default function Customers() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">Last Name</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">Last Name</label>
                   <input
                     type="text"
                     value={formData.lastName}
@@ -284,7 +284,7 @@ export default function Customers() {
 
               <div className="grid grid-cols-2 gap-4 mt-4">
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">Email</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">Email</label>
                   <input
                     type="email"
                     value={formData.email}
@@ -293,7 +293,7 @@ export default function Customers() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">Phone</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">Phone</label>
                   <input
                     type="tel"
                     value={formData.phone}
@@ -304,7 +304,7 @@ export default function Customers() {
               </div>
 
               <div className="mt-4">
-                <label className="block text-sm font-medium text-stone-300 mb-2">Address</label>
+                <label className="block text-sm font-medium text-gray-600 mb-2">Address</label>
                 <input
                   type="text"
                   value={formData.address}
@@ -314,7 +314,7 @@ export default function Customers() {
 
               <div className="grid grid-cols-3 gap-4 mt-4">
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">City</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">City</label>
                   <input
                     type="text"
                     value={formData.city}
@@ -322,7 +322,7 @@ export default function Customers() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">State</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">State</label>
                   <input
                     type="text"
                     value={formData.state}
@@ -331,7 +331,7 @@ export default function Customers() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-stone-300 mb-2">ZIP</label>
+                  <label className="block text-sm font-medium text-gray-600 mb-2">ZIP</label>
                   <input
                     type="text"
                     value={formData.zip}
@@ -344,7 +344,7 @@ export default function Customers() {
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="px-4 py-2 rounded-lg border border-stone-600 text-stone-300 hover:bg-stone-700 transition-colors"
+                  className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition-colors"
                 >
                   Cancel
                 </button>
