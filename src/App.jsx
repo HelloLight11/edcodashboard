@@ -44,7 +44,7 @@ function App() {
   // Loading state
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-900">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="spinner" />
       </div>
     );
@@ -76,7 +76,7 @@ function App() {
   };
 
   return (
-    <div className="flex min-h-screen bg-stone-900">
+    <div className="flex min-h-screen bg-white">
       <Sidebar
         currentPage={currentPage}
         onNavigate={setCurrentPage}
